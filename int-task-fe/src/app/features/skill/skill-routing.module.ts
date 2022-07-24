@@ -16,6 +16,7 @@ const routes: Routes = [
     data: { edit: true },
   },
   { path: 'form', component: SkillFormComponent, data: { edit: false } },
+  { path: '**', redirectTo:'list'}
 ];
 
 @NgModule({
