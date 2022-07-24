@@ -61,15 +61,14 @@ public class SkillServiceImpl implements SkillService {
         }
         Skill c = skillDao.save(skillMapper.toEntity(skillDto));
         return skillMapper.toDto(c);
-
     }
 
     @Override
     public SkillDto save(SkillDto skillDto) throws EntityExistsException {
-        Optional<Skill> entity = skillDao.findById(skillDto.getId());
-        if (entity.isPresent()) {
-            throw new EntityExistsException(entity.get(),"City already exists!");
-        }
+            Optional<Skill> entity = skillDao.findByName(skillDto.getName());
+            if (entity.isPresent()) {
+                throw new EntityExistsException(entity.get(),"Skill already exists!");
+            }
         Skill skill = skillDao.save(skillMapper.toEntity(skillDto));
         return skillMapper.toDto(skill);
     }

@@ -1,49 +1,41 @@
-package com.example.inttaskbe.entity;
+package com.example.inttaskbe.dto;
 
-import javax.persistence.*;
+import com.example.inttaskbe.entity.Skill;
+
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "candidates")
-public class Candidate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CandidateDto implements Dto{
     private Long id;
 
+    @NotBlank
     private String fullName;
 
-    @Temporal(TemporalType.DATE)
+    @NotNull
     private Date birthdate;
 
+    @NotBlank
     private String contactNumber;
 
-    @Column(unique = true)
+    @NotBlank
     private String email;
 
-    @OneToMany
     private Set<Skill> skills;
 
-    public Candidate() {
+    public CandidateDto() {
     }
 
-    public Candidate(Long id, String fullName, Date birthdate, String contactNumber, String email, Set<Skill> skills) {
+    public CandidateDto(Long id, String fullName, Date birthdate, String contactNumber, String email, Set<Skill> skills) {
         this.id = id;
         this.fullName = fullName;
         this.birthdate = birthdate;
         this.contactNumber = contactNumber;
         this.email = email;
         this.skills = skills;
-    }
-
-    public void addSkill(Skill skill){
-        this.skills.add(skill);
-    }
-
-    public void removeSkill(Skill skill){
-        this.skills.remove(skill);
     }
 
     public Long getId() {
@@ -98,8 +90,8 @@ public class Candidate {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Candidate candidate = (Candidate) o;
-        return Objects.equals(id, candidate.id) && Objects.equals(fullName, candidate.fullName) && Objects.equals(birthdate, candidate.birthdate) && Objects.equals(contactNumber, candidate.contactNumber) && Objects.equals(email, candidate.email) && Objects.equals(skills, candidate.skills);
+        CandidateDto that = (CandidateDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(birthdate, that.birthdate) && Objects.equals(contactNumber, that.contactNumber) && Objects.equals(email, that.email) && Objects.equals(skills, that.skills);
     }
 
     @Override
@@ -109,7 +101,7 @@ public class Candidate {
 
     @Override
     public String toString() {
-        return "Candidate{" +
+        return "CandidateDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", birthdate=" + birthdate +
