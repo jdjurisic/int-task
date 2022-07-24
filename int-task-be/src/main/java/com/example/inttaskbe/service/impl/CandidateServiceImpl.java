@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.inttaskbe.specification.CandidateSpecification.nameContains;
+
 @Service
 public class CandidateServiceImpl implements CandidateService {
     private final CandidateDao candidateDao;
@@ -38,10 +40,10 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Page<CandidateDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder) {
+    public Page<CandidateDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String nameFilter) {
         Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
-        Page<CandidateDto> entites = candidateDao.findAll(pageable).map(candidateMapper::toDto);
+        Page<CandidateDto> entites = candidateDao.findAll(nameContains(nameFilter), pageable).map(candidateMapper::toDto);
         return entites;
     }
 

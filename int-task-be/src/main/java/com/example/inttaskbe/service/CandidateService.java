@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface CandidateService {
     List<CandidateDto> findAll();
 
-    Page<CandidateDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
+    Page<CandidateDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String nameFilter);
 
     Optional<CandidateDto> findById(Long id);
 

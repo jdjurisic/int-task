@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.inttaskbe.specification.SkillSpecification.nameContains;
+
 @Service
 public class SkillServiceImpl implements SkillService {
     private final SkillDao skillDao;
@@ -37,10 +39,10 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Page<SkillDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder) {
+    public Page<SkillDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String nameFilter) {
         Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
-        Page<SkillDto> entites = skillDao.findAll(pageable).map(skillMapper::toDto);
+        Page<SkillDto> entites = skillDao.findAll(nameContains(nameFilter),pageable).map(skillMapper::toDto);
         return entites;
     }
 

@@ -46,9 +46,8 @@ public class CandidateController {
     @GetMapping("filter")
     public ResponseEntity<Page<CandidateDto>> findAll(@RequestParam(defaultValue = "0") Integer pageNo,
                                                   @RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "name") String sortBy,
-                                                  @RequestParam(defaultValue = "asc") String sortOrder) {
-//		return ResponseEntity.status(HttpStatus.OK).body(cityService.findAll(pageNo, pageSize, sortBy));
-        return new ResponseEntity<Page<CandidateDto>>(candidateService.findAll(pageNo, pageSize, sortBy, sortOrder), new HttpHeaders(),
+                                                  @RequestParam(defaultValue = "asc") String sortOrder, @RequestParam(required = false, defaultValue = "") String nameFilter) {
+        return new ResponseEntity<Page<CandidateDto>>(candidateService.findAll(pageNo, pageSize, sortBy, sortOrder, nameFilter), new HttpHeaders(),
                 HttpStatus.OK);
     }
 

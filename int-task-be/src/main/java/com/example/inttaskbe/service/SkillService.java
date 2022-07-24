@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface SkillService {
     List<SkillDto> findAll();
 
-    Page<SkillDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
+    Page<SkillDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String nameFilter);
 
     Optional<SkillDto> findById(Long id);
 
