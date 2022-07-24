@@ -1,0 +1,21 @@
+<div class="toast-container mx-auto">
+    <ngb-toast
+      *ngFor="let toast of toasts;let i = index"
+      [class]="toast.className"
+      [autohide]="true"
+      [header]="toast.header"
+      [delay] ="toast.delay || 3000"
+      (hidden)="removeToast(i)"
+    >
+  
+    <ng-template [ngIf]="isToastTemplate(toast)" [ngIfElse]="text" >
+      <ng-container [ngTemplateOutlet]="toast.message" ></ng-container>
+    </ng-template>
+  
+    <ng-template #text>
+      {{toast.message}}
+    </ng-template>
+  
+    </ngb-toast>
+  </div>
+  
