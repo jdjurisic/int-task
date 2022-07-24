@@ -1,9 +1,15 @@
 package com.example.inttaskbe.controller;
 
 import com.example.inttaskbe.dto.CandidateDto;
+import com.example.inttaskbe.dto.SkillDto;
+import com.example.inttaskbe.entity.Candidate;
+import com.example.inttaskbe.entity.Skill;
 import com.example.inttaskbe.exception.EntityExistsException;
 import com.example.inttaskbe.exception.InvalidEntityException;
+import com.example.inttaskbe.mapper.SkillMapper;
 import com.example.inttaskbe.service.CandidateService;
+import com.example.inttaskbe.service.SkillService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,9 +29,13 @@ import java.util.Optional;
 @RequestMapping("candidate")
 public class CandidateController {
     private final CandidateService candidateService;
+    private final SkillService skillService;
 
-    public CandidateController(CandidateService candidateService) {
+    private final SkillMapper skillMapper = Mappers.getMapper(SkillMapper.class);
+
+    public CandidateController(CandidateService candidateService, SkillService skillService) {
         this.candidateService = candidateService;
+        this.skillService = skillService;
     }
 
     @GetMapping
@@ -79,6 +89,39 @@ public class CandidateController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
+
+    // skill operations
+    @PutMapping("{id}/skill/{skillId}")
+    public @ResponseBody
+    ResponseEntity<Object> addSkill(@PathVariable Long id, @PathVariable Long skillId) {
+        Optional<CandidateDto> candidate = candidateService.findById(id);
+        Optional<SkillDto> skill = skillService.findById(skillId);
+
+        // if there are no such candidate or skill
+        if(!(candidate.isPresent() && skill.isPresent())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non existing candidate or skill.");
+
+        candidate.get().getSkills().add(skillMapper.toEntity(skill.get()));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(candidateService.update(candidate.get()));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}/skill/{skillId}")
+    public @ResponseBody
+    ResponseEntity<Object> removeSkill(@PathVariable Long id, @PathVariable Long skillId) {
+        Optional<CandidateDto> candidate = candidateService.findById(id);
+        Optional<SkillDto> skill = skillService.findById(skillId);
+
+        // if there are no such candidate or skill
+        if(!(candidate.isPresent() && skill.isPresent())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non existing candidate or skill.");
+
+        if(candidate.get().getSkills().remove(skillMapper.toEntity(skill.get()))) return ResponseEntity.status(HttpStatus.OK).body(candidateService.update(candidate.get()));
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Somethings wrong.");
+    }
+
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationErrors(MethodArgumentNotValidException ex) {
