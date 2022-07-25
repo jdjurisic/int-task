@@ -1,8 +1,6 @@
 package com.example.inttaskbe.dto;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class SkillDto implements Dto{

@@ -88,7 +88,7 @@ export class SkillListComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-        this.toastService.showToast('Skill cannot be deleted.', {
+        this.toastService.showToast('Skill cannot be deleted. It\'s referenced by candidate.', {
           className: 'bg-warning text-light',
         });
       },

@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "candidates")
 public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class Candidate {
     @Column(unique = true)
     private String email;
 
-    @OneToMany
+    @ManyToMany
     private Set<Skill> skills;
 
     public Candidate() {

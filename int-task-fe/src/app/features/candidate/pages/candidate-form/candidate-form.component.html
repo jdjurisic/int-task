@@ -1,1 +1,111 @@
-<p>candidate-form works!</p>
+<div class="col-lg-8 col-md-10 mx-auto">
+    <div *ngIf="edit; else createNew">
+      <h3 class="text-center p-3">Edit Candidate</h3>
+    </div>
+    <ng-template #createNew>
+      <h3 class="text-center p-3">Add Candidate</h3>
+    </ng-template>
+  
+    <div class="d-flex justify-content-center align-items-start">
+      <a routerLink="/candidate/list"
+        ><button type="button" class="rounded-pill btn btn-outline-danger">Back</button>
+      </a>
+    </div>
+    <hr />
+  </div>
+  
+  <div class="h-100 d-flex justify-content-center align-items-center">
+    <div class="d-flex flex-column">
+      <form
+        *ngIf="candidateForm"
+        [formGroup]="candidateForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="from-group">
+          <label for="fullName">Full name</label>
+          <input
+            id="fullName"
+            class="form-control"
+            placeholder="Full name"
+            type="text"
+            formControlName="fullName"
+          />
+          <div class="alert alert-danger py-1" *ngIf="hasErrors('fullName')">
+            <span *ngIf="hasErrors('Full name', 'required')">
+              <small>Full name is required.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="from-group">
+            <label for="birthDate">Birthdate</label>
+            <input
+              id="birthDate"
+              class="form-control"
+              placeholder="Birthdate"
+              type="date"
+              formControlName="birthdate"
+            />
+      
+            <div class="alert alert-danger py-1" *ngIf="hasErrors('birthdate')">
+              <span *ngIf="hasErrors('birthdate', 'required')">
+                <small>Birthdate is required.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="from-group">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              class="form-control"
+              placeholder="Email"
+              type="email"
+              formControlName="email"
+            />
+            <div class="alert alert-danger py-1" *ngIf="hasErrors('email')">
+              <span *ngIf="hasErrors('email')">
+                <small>Email is invalid.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="from-group">
+            <label for="phone">Phone</label>
+            <input
+              id="phone"
+              class="form-control"
+              placeholder="Phone"
+              type="text"
+              formControlName="contactNumber"
+            />
+          </div>
+
+          <div class="from-group" *ngIf="availableSkills">
+            <label for="skills">Select skills</label>
+            <select
+              multiple
+              class="form-select"
+              formControlName="skills"
+              [compareWith]="compareObj"
+              size="6"
+            >
+              <option *ngFor="let ski of availableSkills" [ngValue]="ski">
+                {{ ski.name }}
+              </option>
+            </select>
+          </div>
+          
+        <hr />
+        <div class="row justify-content-center mb-3">
+          <button class="btn btn-success" [disabled]="!candidateForm.valid">
+            Save
+          </button>
+          <span *ngIf="!candidateForm.valid" class="badge bg-danger"
+            >Form fields aren't valid.</span
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+  

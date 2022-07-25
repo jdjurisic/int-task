@@ -45,14 +45,14 @@ export class CandidateService {
     );
   }
 
-  insertSkill(candidate: Candidate) {
+  insertCandidate(candidate: Candidate) {
     return this.httpClient.post<Candidate>(
       `${environment.serverUrl}${this.controllerUrl}`,
       candidate
     );
   }
 
-  updateSkill(candidate: Candidate) {
+  updateCandidate(candidate: Candidate) {
     return this.httpClient.put<Candidate>(
       `${environment.serverUrl}${this.controllerUrl}/${candidate.id}`,
       candidate
