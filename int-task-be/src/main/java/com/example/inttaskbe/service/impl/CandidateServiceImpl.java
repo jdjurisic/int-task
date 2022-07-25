@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.inttaskbe.specification.CandidateSpecification.containsSkillWithName;
 import static com.example.inttaskbe.specification.CandidateSpecification.nameContains;
 
 @Service
@@ -85,5 +86,13 @@ public class CandidateServiceImpl implements CandidateService {
             throw new InvalidEntityException("Invalid skill entity!");
         }
         candidateDao.deleteById(id);
+    }
+
+    @Override
+    public Page<CandidateDto> findAllBySkill(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String skillName) {
+        Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
+        Page<CandidateDto> entites = candidateDao.findAll(containsSkillWithName(skillName), pageable).map(candidateMapper::toDto);
+        return entites;
     }
 }

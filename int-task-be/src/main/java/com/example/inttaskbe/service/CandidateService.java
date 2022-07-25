@@ -21,4 +21,8 @@ public interface CandidateService {
     CandidateDto save(CandidateDto candidateDto) throws EntityExistsException;
 
     void deleteById(Long id) throws InvalidEntityException;
+
+
+    Page<CandidateDto> findAllBySkill(Integer pageNo, Integer pageSize, String sortBy, String sortOrder, String skillName);
+
 }
