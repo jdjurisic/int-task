@@ -61,12 +61,11 @@ export class SkillFormComponent implements OnInit {
           console.log(response);
           if (this.edit)
             this.toastService.showToast('Skill edited successfully', {
-              header: 'Editing skill',
               className: 'bg-success text-light',
             });
           else
             this.toastService.showToast('Skill saved successfully', {
-              header: 'Saving skill',
+
               className: 'bg-success text-light',
             });
           this.router.navigate(['/skill/list']);
@@ -75,12 +74,10 @@ export class SkillFormComponent implements OnInit {
           console.log('error:', error);
           if (this.edit)
             this.toastService.showToast('Skill edit failed.', {
-              header: 'Operation error.',
               className: 'bg-warning text-light',
             });
           else
-            this.toastService.showToast('Skill is not saved.', {
-              header: 'Operation error.',
+            this.toastService.showToast('Skill is not saved. Skill already exists.', {
               className: 'bg-warning text-light',
             });
         },
@@ -89,11 +86,11 @@ export class SkillFormComponent implements OnInit {
 
   saveSkill() {
     if (this.edit) {
-      return this.skillService.updateOrganization(
+      return this.skillService.updateSkill(
         this.skillForm?.value
       );
     } else {
-      return this.skillService.insertOrganization(
+      return this.skillService.insertSkill(
         this.skillForm?.value
       );
     }

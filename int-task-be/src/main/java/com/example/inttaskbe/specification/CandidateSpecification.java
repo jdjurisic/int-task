@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CandidateSpecification {
     public static Specification<Candidate> nameContains(String name) {
-        return (org, cq, cb) -> cb.like(org.get("name"), "%" + name + "%");
+        return (org, cq, cb) -> cb.like(org.get("fullName"), "%" + name + "%");
     }
 }

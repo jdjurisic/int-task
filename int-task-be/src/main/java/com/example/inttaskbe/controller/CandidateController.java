@@ -45,7 +45,7 @@ public class CandidateController {
 
     @GetMapping("filter")
     public ResponseEntity<Page<CandidateDto>> findAll(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                  @RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "name") String sortBy,
+                                                  @RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "fullName") String sortBy,
                                                   @RequestParam(defaultValue = "asc") String sortOrder, @RequestParam(required = false, defaultValue = "") String nameFilter) {
         return new ResponseEntity<Page<CandidateDto>>(candidateService.findAll(pageNo, pageSize, sortBy, sortOrder, nameFilter), new HttpHeaders(),
                 HttpStatus.OK);
@@ -83,7 +83,7 @@ public class CandidateController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
             candidateService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidEntityException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }

@@ -6,25 +6,25 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Skill } from 'src/app/core/models/entities/skill';
+import { Candidate } from 'src/app/core/models/entities/candidate';
 import { PageDto } from 'src/app/core/models/page.dto';
-import { SkillService } from 'src/app/core/services/skill.service';
+import { CandidateService } from 'src/app/core/services/candidate.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SkillListResolver implements Resolve<PageDto<Skill>>
+export class CandidateListResolver   implements Resolve<PageDto<Candidate>>
 {
   constructor(
-    private skillService: SkillService,
+    private candidateService: CandidateService,
     private activeRoute: ActivatedRoute
   ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<PageDto<Skill>> {
+  ): Observable<PageDto<Candidate>> {
     const page = Number(this.activeRoute.snapshot.queryParams['page']);
-    return this.skillService.getByPage(page ? page : 1, 5);
+    return this.candidateService.getByPage(page ? page : 1, 5);
   }
 }

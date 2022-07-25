@@ -44,16 +44,16 @@ export class SkillService {
     );
   }
 
-  insertOrganization(skill: Skill) {
+  insertSkill(skill: Skill) {
     return this.httpClient.post<Skill>(
       `${environment.serverUrl}${this.controllerUrl}`,
       skill
     );
   }
 
-  updateOrganization(skill: Skill) {
+  updateSkill(skill: Skill) {
     return this.httpClient.put<Skill>(
-      `${environment.serverUrl}${this.controllerUrl}`,
+      `${environment.serverUrl}${this.controllerUrl}/${skill.id}`,
       skill
     );
   }

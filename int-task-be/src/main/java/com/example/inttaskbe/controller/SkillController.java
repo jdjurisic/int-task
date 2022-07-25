@@ -76,7 +76,7 @@ public class SkillController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
             skillService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidEntityException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }

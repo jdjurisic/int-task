@@ -1,0 +1,95 @@
+<div class="col-lg-8 col-md-10 mx-auto">
+    <h3 class="text-center p-3">Candidates</h3>
+    <div class="d-flex justify-content-center align-items-start">
+      <a routerLink="/candidate/form"
+        ><button type="button" class="rounded-pill btn btn-outline-success">
+          Add
+        </button></a
+      >
+    </div>
+    <hr/>
+  
+    <div class="col-md-3 mx-auto">
+      <input
+        class="form-control mx-auto"
+        type="text"
+        name="search"
+        [ngModel]="nameFilter"
+        (ngModelChange)="changed($event)"
+        placeholder="Search by name"
+      />
+    </div>
+  
+    <div class="col-md-10 mx-auto">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Full name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Birthdate</th>
+          <th scope="col">Skills</th>
+          <th scope="col">Actions</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!loadingData; else loading">
+          <tr *ngFor="let cans of candidates">
+            <td>
+              {{ cans.fullName }}
+            </td>
+            <td>
+                {{ cans.email }}
+              </td>
+              <td>
+                {{ cans.contactNumber }}
+              </td>
+              <td>
+                {{ cans.birthdate }}
+              </td>
+              <td>
+                <ng-container *ngFor="let sk of cans.skills">
+                    {{ sk.name }}
+                </ng-container>
+              </td>
+            <td>
+              <button
+                class="btn btn-outline-primary mx-1"
+                [routerLink]="['/candidate/form', cans.id]"
+              >
+                <span class="btn-text-responsive">Edit</span>
+              </button>
+              <button class="btn btn-outline-danger" (click)="deleteCandidate(cans.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    </div>
+  
+    <div class="d-flex justify-content-center align-items-start">
+      <button type="button disabled" class="btn">Page size</button>
+      <select
+        class="form-select w-auto mx-1"
+        (change)="onPageSizeChange()"
+        [(ngModel)]="pageSize"
+      >
+        <option *ngFor="let size of availablePageSize" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+      <ngb-pagination
+        class="align-self-center"
+        [collectionSize]="totalItems"
+        [(page)]="currentPage"
+        (pageChange)="onPageChange($event)"
+        [pageSize]="pageSize"
+      ></ngb-pagination>
+    </div>
+  
+    <ng-template #loading> Loading... </ng-template>
+  </div>
+  

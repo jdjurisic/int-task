@@ -82,14 +82,13 @@ export class SkillListComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.toastService.showToast('Skill deleted successfully', {
-          header: 'Deleting skill',
           className: 'bg-success text-light',
         });
         this.loadSkills();
       },
       error: (error) => {
+        console.log(error);
         this.toastService.showToast('Skill cannot be deleted.', {
-          header: 'Deleting organization failed',
           className: 'bg-warning text-light',
         });
       },
