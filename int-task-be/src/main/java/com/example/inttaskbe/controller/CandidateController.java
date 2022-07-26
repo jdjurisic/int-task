@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("candidate")
+@RequestMapping("/candidate")
 public class CandidateController {
     private final CandidateService candidateService;
     private final SkillService skillService;

@@ -1,0 +1,33 @@
+INSERT INTO `skill` (`id`,`name`) VALUES (1,'Java');
+INSERT INTO `skill` (`id`,`name`) VALUES (2,'Python');
+INSERT INTO `skill` (`id`,`name`) VALUES (3,'Typescript');
+INSERT INTO `skill` (`id`,`name`) VALUES (4,'C++');
+INSERT INTO `skill` (`id`,`name`) VALUES (5,'C');
+INSERT INTO `skill` (`id`,`name`) VALUES (6,'C#');
+INSERT INTO `skill` (`id`,`name`) VALUES (7,'English');
+INSERT INTO `skill` (`id`,`name`) VALUES (8,'Spanish');
+INSERT INTO `skill` (`id`,`name`) VALUES (9,'German');
+INSERT INTO `skill` (`id`,`name`) VALUES (10,'Serbian');
+
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (1,'1982-05-24', '066212321', 'aanic@gmail.com', 'Ana Anic');
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (2,'2001-01-08', '063333444', 'pperic@gmail.com', 'Pera Peric');
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (3,'2003-01-08', '068224221', 'jjovic@gmail.com', 'Jova Jovic');
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (4,'1992-05-24', '067767666', 'mmicic@gmail.com', 'Milica Micic');
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (5,'1972-05-24', '069999888', 'iivic@gmail.com', 'Iva Ivic');
+INSERT INTO `candidate` (`id`, `birthdate`, `contact_number`, `email`, `full_name`) VALUES (6,'1962-05-24', '062223333', 'djdjordjevic@gmail.com', 'Djordje Djordjevic');
+
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (1,1);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (1,2);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (1,3);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (2,1);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (2,2);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (2,3);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (3,4);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (3,5);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (3,6);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (4,7);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (4,8);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (4,9);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (5,10);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (6,1);
+INSERT INTO `candidate_skills` (`candidate_id`, `skills_id`) VALUES (1,10);
