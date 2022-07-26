@@ -51,6 +51,14 @@ public class CandidateController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("skillfilter")
+    public ResponseEntity<Page<CandidateDto>> findAllWithSkill(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                               @RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "fullName") String sortBy,
+                                                               @RequestParam(defaultValue = "asc") String sortOrder, @RequestParam(required = false, defaultValue = "") String skillFilter) {
+        return new ResponseEntity<Page<CandidateDto>>(candidateService.findAllBySkill(pageNo, pageSize, sortBy, sortOrder, skillFilter), new HttpHeaders(),
+                HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         Optional<CandidateDto> candidate = candidateService.findById(id);
@@ -131,13 +139,5 @@ public class CandidateController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-    }
-
-    @GetMapping("testing")
-    public ResponseEntity<Page<CandidateDto>> findAllWithSkill(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                      @RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "fullName") String sortBy,
-                                                      @RequestParam(defaultValue = "asc") String sortOrder, @RequestParam(required = false, defaultValue = "") String skillFilter) {
-        return new ResponseEntity<Page<CandidateDto>>(candidateService.findAllBySkill(pageNo, pageSize, sortBy, sortOrder, skillFilter), new HttpHeaders(),
-                HttpStatus.OK);
     }
 }

@@ -24,6 +24,9 @@ export class CandidateListComponent implements OnInit {
 
   availablePageSize = [5, 10, 15];
 
+  availableFilters = ['skill', 'fullname'];
+  searchBy = 'fullname';
+
   constructor(
     private candidateService: CandidateService,
     private router: Router,
@@ -49,18 +52,38 @@ export class CandidateListComponent implements OnInit {
 
   loadCandidates() {
     this.loadingData = true;
-    this.candidateService
-      .getByPage(
-        this.currentPage,
-        this.pageSize,
-        this.nameFilter
-      )
-      .subscribe((candidatePage) => {
-        this.candidates = candidatePage.content;
-        this.totalItems = candidatePage.totalElements;
-        this.pageSize = candidatePage.size;
-        this.loadingData = false;
-      });
+
+    switch (this.searchBy) {
+      case "fullname":
+        this.candidateService
+        .getByPage(
+          this.currentPage,
+          this.pageSize,
+          this.nameFilter
+        )
+        .subscribe((candidatePage) => {
+          this.candidates = candidatePage.content;
+          this.totalItems = candidatePage.totalElements;
+          this.pageSize = candidatePage.size;
+          this.loadingData = false;
+        });
+        break;
+    
+      case "skill":
+        this.candidateService
+        .getByPageSkillFiltered(
+          this.currentPage,
+          this.pageSize,
+          this.nameFilter
+        )
+        .subscribe((candidatePage) => {
+          this.candidates = candidatePage.content;
+          this.totalItems = candidatePage.totalElements;
+          this.pageSize = candidatePage.size;
+          this.loadingData = false;
+        });
+        break;
+    }
   }
 
   onPageChange(page: number) {
@@ -90,5 +113,9 @@ export class CandidateListComponent implements OnInit {
 
   changed(text: string) {
     this.nameFilterChanged.next(text);
+  }
+
+  onSearchChange() {
+    console.log(this.searchBy);
   }
 }

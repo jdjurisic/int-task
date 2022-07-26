@@ -64,4 +64,23 @@ export class CandidateService {
       `${environment.serverUrl}${this.controllerUrl}/${id}`
     );
   }
+
+  getByPageSkillFiltered(
+    page: number,
+    size: number,
+    skillFilter?: string
+  ) {
+    if (!skillFilter)
+      return this.httpClient.get<PageDto<Candidate>>(
+        `${environment.serverUrl}${this.controllerUrl}/filter/?pageNo=${
+          page - 1
+        }&pageSize=${size}`
+      );
+    else
+      return this.httpClient.get<PageDto<Candidate>>(
+        `${environment.serverUrl}${this.controllerUrl}/skillfilter/?pageNo=${
+          page - 1
+        }&pageSize=${size}&skillFilter=${skillFilter}`
+      );
+  }
 }

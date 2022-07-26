@@ -17,7 +17,7 @@ public class CandidateSpecification {
     public static Specification<Candidate> containsSkillWithName(String name) {
         return (root, query, cb) -> {
             Join<Object, Object> bListJoin = root.join("skills", JoinType.INNER);
-            return cb.equal(bListJoin.get("name"), name);
+            return cb.like(bListJoin.get("name"), name);
         };
     }
 }
